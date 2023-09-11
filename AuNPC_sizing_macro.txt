@@ -1,0 +1,20 @@
+// ImageJ Macro to size AuNPC from TEM images of same magnification. 
+// Joe Fox 2021
+
+// Need to make the image binary
+setOption("BlackBackground", false);
+run("Make Binary"); 
+
+// Runs the analysis, ignores very small particles, particles touching edges and particles with strange circularity (particle clumps)
+run("Analyze Particles...", "size=0.0001-Infinity circularity=0.80-1.00 show=Outlines display exclude in_situ"); 
+
+//Saves the csv data
+Image_Title = getTitle()
+saveAs("Results", "FILEPATH" + Image_Title + "_sizes.csv")
+
+//Saves the image with the generated outlines as a JPEG
+saveAs("Jpeg", "FILEPATH" + Image_Title + "_outlines.jpg")
+
+
+
+

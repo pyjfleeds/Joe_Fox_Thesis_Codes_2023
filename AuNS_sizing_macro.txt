@@ -1,0 +1,20 @@
+// ImageJ Macro to size AuNS from TEM images of same magnification. 
+// Joe Fox 2021
+
+// Crops out TEM image frame
+makeRectangle(80, 80, 3904, 3936); 
+run("Crop");
+
+// Applies Gaussian blur
+run("8-bit");
+run("Gaussian Blur...", "sigma=5");
+
+// Applies threshold
+setAutoThreshold("Default no-reset");
+run("Threshold...");
+setThreshold(0, 174);
+setOption("BlackBackground", false);
+
+// Measures only the masked area, i.e. area containing AuNS
+run("Convert to Mask"); 
+run("Measure");
